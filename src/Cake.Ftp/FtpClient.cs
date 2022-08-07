@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Cake.Core;
 using Cake.Core.IO;
@@ -139,7 +138,7 @@ namespace Cake.Ftp {
         private void CheckParams(string host, string remotePath, FtpSettings settings)
         {
             host.NotNullOrWhiteSpace(nameof(host));
-            remotePath.NotNullOrWhiteSpace(nameof(host));
+            remotePath.NotNullOrWhiteSpace(nameof(remotePath));
             settings.Username.NotNullOrWhiteSpace(nameof(settings.Username));
             settings.Password.NotNullOrWhiteSpace(nameof(settings.Password));
         }
