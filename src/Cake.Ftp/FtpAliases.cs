@@ -121,6 +121,21 @@ namespace Cake.Ftp {
             var ftpClient = new FtpClient(context.FileSystem, context.Environment, new FtpService(context.Log));            
             ftpClient.UploadFolder(host, remoteFolder, localFolder, settings, rules, process, ftpFolderSyncMode, ftpRemoteExists, ftpVerify);
         }
+        
+        /// <summary>
+        /// Upload folder parallel
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="serverUri"></param>
+        /// <param name="localFolder"></param>
+        /// <param name="settings"></param>
+        /// <param name="parallel"></param>
+        /// <param name="ignoreRule"></param>
+        [CakeMethodAlias]
+        public static void FtpUploadFolderParallel(this ICakeContext context, Uri serverUri, string localFolder, FtpSettings settings, int parallel = 5, Func<string, bool> ignoreRule = null)
+        {
+            FtpUploadFolderParallel(context, serverUri.Host, serverUri.AbsolutePath, localFolder, settings, parallel, ignoreRule);
+        }
 
         /// <summary>
         /// Upload folder parallel
@@ -210,6 +225,56 @@ namespace Cake.Ftp {
             context.NotNull(nameof(context));
             var ftpClient = new FtpClient(context.FileSystem, context.Environment, new FtpService(context.Log));
             ftpClient.DeleteFile(host, remotePath, settings);
+        }
+        
+        /// <summary>
+        /// Deletes the folder on the FTP server using the supplied credentials.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// Task("DeleteFolder")
+        ///   .Does(() => {
+        ///     var settings = new FtpSettings() {
+        ///       Username = "some-user",
+        ///       Password = "some-password"
+        ///     };
+        ///     FtpDeleteFolder("ftp://myserver/random/", settings);
+        /// });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="serverUri">FTP URI requring FTP:// schema.</param>
+        /// <param name="settings">The settings.</param>
+        [CakeMethodAlias]
+        public static void FtpDeleteFolder(this ICakeContext context, Uri serverUri, FtpSettings settings) {
+            FtpDeleteFolder(context, serverUri.Host, serverUri.AbsolutePath, settings);
+        }
+
+        /// <summary>
+        /// Deletes the folder on the FTP server using the supplied credentials.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// Task("DeleteFolder")
+        ///   .Does(() => {
+        ///     var settings = new FtpSettings() {
+        ///       Username = "some-user",
+        ///       Password = "some-password"
+        ///     };
+        ///     FtpDeleteFolder("myserver", "/random/", settings);
+        /// });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="host">host of the FTP Client</param>
+        /// <param name="remotePath">path on the folder on the server</param>
+        /// <param name="settings">The settings.</param>
+        [CakeMethodAlias]
+        public static void FtpDeleteFolder(this ICakeContext context, string host, string remotePath, FtpSettings settings)
+        {
+            context.NotNull(nameof(context));
+            var ftpClient = new FtpClient(context.FileSystem, context.Environment, new FtpService(context.Log));
+            ftpClient.DeleteFolder(host, remotePath, settings);
         }
 
     /// <summary>

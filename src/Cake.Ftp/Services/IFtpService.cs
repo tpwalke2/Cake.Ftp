@@ -57,6 +57,14 @@ namespace Cake.Ftp.Services {
         void UploadFolderParallel(string host, string remotePath, string sourcePath, FtpSettings settings, int parallel = 5, Func<string, bool> ignoreRule = null);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="remotePath"></param>
+        /// <param name="settings"></param>
+        void DeleteFolder(string host, string remotePath, FtpSettings settings);
+        
+        /// <summary>
         /// Download file
         /// </summary>
         /// <param name="host"></param>

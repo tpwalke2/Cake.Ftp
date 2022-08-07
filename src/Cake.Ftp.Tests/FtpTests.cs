@@ -194,6 +194,76 @@ namespace Cake.Ftp.Tests {
                 result.Should().BeNull();
             }
         }
+        
+        
+        public sealed class TheDeleteFolderMethod
+        {
+            [Fact]
+            public void Should_Throw_If_Host_Is_Null()
+            {
+                // Given
+                var fixture = new FtpClientFixture { Host = null };
+
+                // When 
+                var result = Record.Exception(() => fixture.DeleteFolder());
+
+                // Then
+                result.Should().BeOfType<ArgumentNullException>().Subject
+                    .ParamName.Should().BeEquivalentTo("host");
+            }
+
+            [Fact]
+            public void Should_Throw_If_RemotePath_Is_Null()
+            {
+                // Given
+                var fixture = new FtpClientFixture { RemotePath = null };
+
+                // When 
+                var result = Record.Exception(() => fixture.DeleteFolder());
+
+                // Then
+                result.Should().BeOfType<ArgumentNullException>().Subject
+                    .ParamName.Should().BeEquivalentTo("remotePath");
+            }
+
+            [Fact]
+            public void Should_Throw_If_Username_Is_Null() {
+                // Given
+                var fixture = new FtpClientFixture { Username = null };
+
+                // When 
+                var result = Record.Exception(() => fixture.DeleteFolder());
+
+                // Then
+                result.Should().BeOfType<ArgumentNullException>().Subject
+                  .ParamName.Should().BeEquivalentTo("Username");
+            }
+
+            [Fact]
+            public void Should_Throw_If_Password_Is_Null() {
+                // Given
+                var fixture = new FtpClientFixture { Password = null };
+
+                // When 
+                var result = Record.Exception(() => fixture.DeleteFolder());
+
+                // Then
+                result.Should().BeOfType<ArgumentNullException>().Subject
+                 .ParamName.Should().BeEquivalentTo("Password");
+            }
+
+            [Fact]
+            public void Should_Delete_Folder_Without_Error() {
+                // Given
+                var fixture = new FtpClientFixture();
+
+                // When 
+                var result = Record.Exception(() => fixture.DeleteFolder());
+
+                // Then
+                result.Should().BeNull();
+            }
+        }
 
 
         public sealed class TheUploadDirectoryMethod

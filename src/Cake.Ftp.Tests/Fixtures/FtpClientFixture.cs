@@ -75,6 +75,12 @@ namespace Cake.Ftp.Tests.Fixtures {
             var settings = new FtpSettings() { Username = Username, Password = Password };
             ftpClient.DeleteFile(Host, RemotePath, settings);
         }
+        
+        public void DeleteFolder() {
+            var ftpClient = new FtpClient(FileSystem, Environment, FtpService);
+            var settings  = new FtpSettings() { Username = Username, Password = Password };
+            ftpClient.DeleteFolder(Host, RemotePath, settings);
+        }
 
         public void UploadDirectory()
         {

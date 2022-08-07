@@ -90,6 +90,7 @@ namespace Cake.Ftp.Services {
             }
         }
 
+        /// <summary>
         /// Uploads a file.
         /// </summary>
         /// <param name="host">host of the FTP Client</param>
@@ -313,6 +314,20 @@ namespace Cake.Ftp.Services {
             {
                 _log.Error(DateTime.Now.ToString(CultureInfo.InvariantCulture) + "Error in Uploading file: " + sourcePath + " " + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.StackTrace);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="remotePath"></param>
+        /// <param name="settings"></param>
+        public void DeleteFolder(string host, string remotePath, FtpSettings settings) {
+            using var client = CreateClient(host, settings);
+            Connect(client, settings.AutoDetectConnectionSettings);
+
+            client.DeleteDirectory(remotePath);
+            client.Disconnect();
         }
 
         /// <summary>

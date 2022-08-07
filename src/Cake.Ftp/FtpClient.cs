@@ -101,6 +101,18 @@ namespace Cake.Ftp {
             _ftpService.DeleteFile(host, remotePath, settings);
         }
 
+        /// <summary>
+        /// Deletes the folder at the specified path.
+        /// </summary>
+        /// <param name="host">host of the FTP client</param>
+        /// <param name="remotePath">path to the folder on the server</param>
+        /// <param name="settings">The settings.</param>
+        public void DeleteFolder(string host, string remotePath, FtpSettings settings) {
+            CheckParams(host, remotePath, settings);
+            
+            _ftpService.DeleteFolder(host, remotePath, settings);
+        }
+
     /// <summary>
     /// Downloads a file.
     /// </summary>
