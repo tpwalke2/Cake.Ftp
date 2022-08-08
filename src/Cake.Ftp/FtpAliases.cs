@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Cake.Core;
 using Cake.Core.Annotations;
 using Cake.Core.IO;
@@ -96,6 +95,32 @@ namespace Cake.Ftp {
             context.NotNull(nameof(context));
             var ftpClient = new FtpClient(context.FileSystem, context.Environment, new FtpService(context.Log));
             ftpClient.UploadFile(host, remotePath, fileToUpload, settings);
+        }
+
+        /// <summary>
+        /// Creates a folder on the FTP server.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="serverUri">Uri of the path to create on the server.</param>
+        /// <param name="settings">The settings.</param>
+        [CakeMethodAlias]
+        public static void FtpCreateFolder(this ICakeContext context, Uri serverUri, FtpSettings settings) {
+            FtpCreateFolder(context, serverUri.Host, serverUri.AbsolutePath, settings);
+        }
+
+        /// <summary>
+        /// Creates a folder on the FTP server.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="host">host of the FTP server</param>
+        /// <param name="remoteFolder">path on the server to create</param>
+        /// <param name="settings">The settings.</param>
+        [CakeMethodAlias]
+        public static void FtpCreateFolder(this ICakeContext context, string host, string remoteFolder, FtpSettings settings) {
+            context.NotNull(nameof(context));
+            
+            var ftpClient = new FtpClient(context.FileSystem, context.Environment, new FtpService(context.Log));
+            ftpClient.CreateFolder(host, remoteFolder, settings);
         }
 
         /// <summary>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -59,6 +58,20 @@ namespace Cake.Ftp.Services {
                 client.Disconnect();
             }
 
+        }
+
+        /// <summary>
+        /// Creates a folder.
+        /// </summary>
+        /// <param name="host">host of the FTP server</param>
+        /// <param name="remotePath">path on the server to create</param>
+        /// <param name="settings">The settings.</param>
+        public void CreateFolder(string host, string remotePath, FtpSettings settings) {
+            using var client = CreateClient(host, settings);
+            Connect(client, settings.AutoDetectConnectionSettings);
+
+            client.CreateDirectory(remotePath);
+            client.Disconnect();
         }
 
         /// <summary>

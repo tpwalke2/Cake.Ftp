@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Cake.Core.IO;
 using FluentFTP;
 using FluentFTP.Rules;
@@ -26,6 +25,14 @@ namespace Cake.Ftp.Services {
         /// <param name="remotePath">path on the file on the server</param>
         /// <param name="settings">Ftp Settings</param>
         void DeleteFile(string host, string remotePath, FtpSettings settings);
+
+        /// <summary>
+        /// Creates a folder
+        /// </summary>
+        /// <param name="host">host of the FTP server</param>
+        /// <param name="remotePath">path to create on the server</param>
+        /// <param name="settings">The settings.</param>
+        void CreateFolder(string host, string remotePath, FtpSettings settings);
 
         /// <summary>
         /// Upload and Overwite remote folder with local folder for default

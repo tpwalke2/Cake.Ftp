@@ -50,6 +50,18 @@ namespace Cake.Ftp {
         }
 
         /// <summary>
+        /// Creates the specified folder on the server.
+        /// </summary>
+        /// <param name="host">host of the FTP server</param>
+        /// <param name="remotePath">path on the server to create</param>
+        /// <param name="settings">The settings.</param>
+        public void CreateFolder(string host, string remotePath, FtpSettings settings) {
+            CheckParams(host, remotePath, settings);
+
+            _ftpService.CreateFolder(host, remotePath, settings);
+        }
+
+        /// <summary>
         /// Upload and Overwite remote folder with local folder for default
         /// </summary>
         /// <param name="host"></param>
